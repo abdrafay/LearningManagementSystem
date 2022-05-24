@@ -1,0 +1,22 @@
+.txtFHeight {
+    -fx-min-height: 30;
+}
+:-fx-root {
+    --primary: #050a30;
+}
+
+
+/* Language: css */
+/* Path: project\src\main\resources\styles.css */
+.primary-bg {
+    -fx-background-color: #050a30;
+}
+
+.button-hover:hover {
+    -fx-background-color: #223dfe;
+}
+.btn {
+    -fx-font-family: 'Poppins';
+    -fx-text-fill: #fff;
+    -fx-background-color: #12229c;
+}
