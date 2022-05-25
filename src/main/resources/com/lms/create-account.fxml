@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lms.AdminController">
    <children>
       <ImageView fitHeight="268.0" fitWidth="866.0" pickOnBounds="true">
          <image>
@@ -26,15 +26,15 @@
                   <Image url="@../../graphic%20(1).png" />
                </image>
             </ImageView>
-            <Button layoutX="243.0" layoutY="215.0" mnemonicParsing="false" text="Create" />
-            <ComboBox layoutX="198.0" layoutY="32.0" prefWidth="150.0" promptText="Teacher" />
+            <Button layoutX="243.0" layoutY="215.0" mnemonicParsing="false" onAction="#createAccount" text="Create" />
+            <ComboBox fx:id="designation" layoutX="198.0" layoutY="32.0" prefWidth="150.0" promptText="Teacher" />
             <Label layoutX="118.0" layoutY="36.0" text="Designation" />
             <Label layoutX="127.0" layoutY="75.0" text="Full Name" />
             <Label layoutX="145.0" layoutY="110.0" text="Email" />
             <Label layoutX="126.0" layoutY="148.0" text="password" />
-            <TextField layoutX="196.0" layoutY="72.0" />
-            <TextField layoutX="196.0" layoutY="107.0" />
-            <TextField layoutX="198.0" layoutY="145.0" />
+            <TextField fx:id="fullNameField" layoutX="196.0" layoutY="72.0" />
+            <TextField fx:id="emailField" layoutX="196.0" layoutY="107.0" />
+            <TextField fx:id="passwordField" layoutX="198.0" layoutY="145.0" />
          </children>
       </AnchorPane>
    </children>

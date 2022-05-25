@@ -1,6 +1,7 @@
 package com.lms;
 
 import java.sql.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,7 +11,9 @@ import javafx.collections.ObservableList;
 // import Libaries
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 // import javafx.scene.control.Button;
 // import javafx.scene.Group;
 // import javafx.scene.Scene;
@@ -50,10 +53,11 @@ public class LoginController implements Initializable {
     // }
     // })
     @FXML
-    private void loginButtonAction(ActionEvent event) {
+    private void loginButtonAction(ActionEvent event) throws IOException {
         String email = emailField.getText();
         String password = passwordField.getText();
         System.out.println("Email: " + email);
+        Parent root = null;
         try {
             // rs = App.getStatement().executeQuery("select * from admin");
             // if (roleBox.getValue().equals("Admin")) {
@@ -69,30 +73,55 @@ public class LoginController implements Initializable {
             // }
             if (roleBox.getValue().equals("Admin")) {
                 rs = App.getStatement().executeQuery(
-                        "SELECT * FROM admin WHERE Email = '" + email + "' AND Password = '" + password + "'");
+                        "SELECT * FROM users WHERE Email = '" + email + "' AND Password = '" + password
+                                + "' AND user_type = 'Admin'");
                 System.out.println("Here");
                 System.out.println("Rs" + rs);
                 if (rs.next()) {
-                    System.out.println("Password: " + rs.getString(5));
-                    // App.setRoot("announcement-teacher");
+                    System.out.println("Login Successful");
 
-                    AdminController adminController = new AdminController();
+                    // App.setRoot("announcement-teacher");
+                    // AdminController adminController = new AdminController(
+                    // Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3),
+                    // rs.getString(4));
+                    // AdminController Admin = new AdminController();
+                    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("admin-dashboard.fxml"));
+                    root = fxmlLoader.load();
+                    AdminController Admin = fxmlLoader.getController();
+                    Admin.setName(rs.getString(2));
+                    Admin.updateNameLabel(rs.getString(2));
+
+                    System.out.println(Admin.getName());
+
+                    // Admin.setId(Integer.parseInt(rs.getString(1)));
+                    // Admin.setName(rs.getString(2));
+                    // Admin.updateNameLabel(rs.getString(2));
+                    // Admin.setEmail(rs.getString(3));
+                    // Admin.setPassword(rs.getString(4));
                     App.setRoot("admin-dashboard");
                     // adminController.setName(rs.getString(2));
                 } else {
                     System.out.println("Wrong email or password");
                 }
             } else if (roleBox.getValue().equals("Teacher")) {
-                // rs = App.getStatement().executeQuery(
-                // "SELECT * FROM teacher WHERE email = '" + email + "' AND password = '" +
-                // password + "'");
-                // if (rs.next()) {
-                App.setRoot("announcement-teacher");
-                // }
+                rs = App.getStatement().executeQuery(
+                        "SELECT * FROM users WHERE email = '" + email + "' AND password = '" +
+                                password + "' AND user_type = 'Teacher'");
+                if (rs.next()) {
+                    TeacherController Teacher = new TeacherController();
+                    Teacher.setId(Integer.parseInt(rs.getString(1)));
+                    Teacher.setName(rs.getString(2));
+                    Teacher.setEmail(rs.getString(3));
+                    Teacher.setPassword(rs.getString(4));
+                    App.setRoot("announcement-teacher");
+                }
             } else if (roleBox.getValue().equals("Student")) {
                 rs = App.getStatement().executeQuery(
-                        "SELECT * FROM student WHERE email = '" + email + "' AND password = '" + password + "'");
+                        "SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password
+                                + "' AND user_type = 'Student'");
                 if (rs.next()) {
+                    StudentController student = new StudentController(
+                            Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4));
                     App.setRoot("student-window");
                 }
             }

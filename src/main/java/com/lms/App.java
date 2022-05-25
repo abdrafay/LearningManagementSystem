@@ -19,7 +19,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // try {
-        scene = new Scene(loadFXML("admin-dashboard"));
+        scene = new Scene(loadFXML("login-window"));
         // } catch (Exception e) {
         // e.getMessage();
         // }
