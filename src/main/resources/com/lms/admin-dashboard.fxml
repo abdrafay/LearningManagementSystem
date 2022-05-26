@@ -2,7 +2,11 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -10,17 +14,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lms.AdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="691.0" prefWidth="989.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lms.AdminController">
    <children>
+      <Label fx:id="nameLabel" layoutX="35.0" layoutY="149.0" prefHeight="17.0" prefWidth="250.0">
+         <font>
+            <Font name="Poppins Regular" size="18.0" />
+         </font>
+      </Label>
       <!-- <AnchorPane layoutX="1.0" layoutY="1.0" prefHeight="233.0" prefWidth="806.0" style="-fx-background-color: #050a30;">
          <effect>
             <InnerShadow />
          </effect>
       </AnchorPane> -->
-      <ImageView fitHeight="224.0" fitWidth="806.0" layoutX="-1.0" layoutY="3.0" pickOnBounds="true">
+      <ImageView fitHeight="224.0" fitWidth="989.0" pickOnBounds="true">
          <image>
             <Image url="@../../Upper%20head.png" />
          </image>
@@ -28,13 +39,13 @@
             <InnerShadow />
          </effect>
       </ImageView>
-      <ImageView fitHeight="111.0" fitWidth="129.0" layoutX="655.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="111.0" fitWidth="129.0" layoutX="864.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../icon.png" />
          </image>
       </ImageView>
       <Accordion layoutX="70.0" layoutY="305.0" />
-      <AnchorPane layoutX="108.0" layoutY="305.0" prefHeight="355.0" prefWidth="509.0" style="-fx-background-color: #050a30;">
+      <AnchorPane layoutX="341.0" layoutY="756.0" prefHeight="355.0" prefWidth="509.0" style="-fx-background-color: #050a30;">
          <children>
             <GridPane gridLinesVisible="true" layoutX="6.0" layoutY="8.0" prefHeight="339.0" prefWidth="499.0">
               <columnConstraints>
@@ -81,16 +92,74 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="128.0" fitWidth="167.0" layoutX="81.0" layoutY="239.0" pickOnBounds="true">
-         <image>
-            <Image url="@../../graphic%20(1).png" />
-         </image>
-      </ImageView>
-      <Label fx:id="nameLabel" layoutX="35.0" layoutY="149.0" prefHeight="17.0" prefWidth="250.0">
-         <font>
-            <Font name="Poppins Regular" size="18.0" />
-         </font>
-      </Label>
+      <HBox layoutY="224.0" prefHeight="469.0" prefWidth="318.0">
+         <children>
+            <AnchorPane prefHeight="469.0" prefWidth="321.0" style="-fx-background-color: #5cb6f9;">
+               <effect>
+                  <InnerShadow />
+               </effect>
+               <children>
+                  <Button fx:id="create_acc_button" layoutX="61.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Create" />
+                  <ComboBox fx:id="designation" layoutX="39.0" layoutY="138.0" prefHeight="25.0" prefWidth="222.0" promptText="Teacher" />
+                  <Label layoutX="42.0" layoutY="115.0" text="Designation" textFill="WHITE">
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="43.0" layoutY="169.0" text="Full Name" textFill="WHITE">
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="43.0" layoutY="218.0" text="Email" textFill="WHITE">
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="42.0" layoutY="269.0" text="Password" textFill="WHITE">
+                     <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fullNameField" layoutX="40.0" layoutY="188.0" prefHeight="25.0" prefWidth="222.0" />
+                  <TextField fx:id="emailField" layoutX="40.0" layoutY="237.0" prefHeight="25.0" prefWidth="222.0" />
+                  <TextField fx:id="passwordField" layoutX="41.0" layoutY="287.0" prefHeight="25.0" prefWidth="222.0" />
+                  <Button fx:id="create_acc_button1" layoutX="159.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Update" />
+                  <Label layoutX="20.0" layoutY="24.0" prefHeight="83.0" prefWidth="279.0" text="Create/Update Account" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Poppins Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox layoutX="317.0" layoutY="224.0" prefHeight="64.0" prefWidth="671.0">
+         <children>
+            <AnchorPane prefHeight="64.0" prefWidth="674.0">
+               <children>
+                  <Label layoutX="254.0" layoutY="13.0" prefHeight="38.0" prefWidth="163.0" text="User Details" textAlignment="CENTER">
+                     <font>
+                        <Font name="Poppins Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <VBox layoutX="318.0" layoutY="288.0" prefHeight="404.0" prefWidth="671.0">
+         <children>
+            <TableView prefHeight="403.0" prefWidth="671.0">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="ID" />
+                  <TableColumn prefWidth="174.0" text="Name" />
+                  <TableColumn prefWidth="237.0" text="Email" />
+                  <TableColumn prefWidth="76.0" text="User Type" />
+                  <TableColumn minWidth="0.0" prefWidth="107.0" text="Actions" />
+               </columns>
+            </TableView>
+         </children>
+      </VBox>
    </children>
    <effect>
       <Blend />
