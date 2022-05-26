@@ -26,7 +26,7 @@
                   <Image url="@../../graphic%20(1).png" />
                </image>
             </ImageView>
-            <Button layoutX="243.0" layoutY="215.0" mnemonicParsing="false" onAction="#createAccount" text="Create" />
+            <Button fx:id="create_acc_button" layoutX="243.0" layoutY="215.0" mnemonicParsing="false" text="Create" />
             <ComboBox fx:id="designation" layoutX="198.0" layoutY="32.0" prefWidth="150.0" promptText="Teacher" />
             <Label layoutX="118.0" layoutY="36.0" text="Designation" />
             <Label layoutX="127.0" layoutY="75.0" text="Full Name" />

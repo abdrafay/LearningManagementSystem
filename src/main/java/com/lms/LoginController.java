@@ -13,13 +13,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 // import javafx.scene.control.Button;
 // import javafx.scene.Group;
 // import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
     private ResultSet rs;
@@ -36,7 +39,7 @@ public class LoginController implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle rs) {
         // roleBox.setValue("Admin");
-        roleBox.setItems(roleList);
+        roleBox.setItems(App.roleList);
     }
     // @FXML private void initialize() {
 
@@ -78,27 +81,33 @@ public class LoginController implements Initializable {
                 System.out.println("Here");
                 System.out.println("Rs" + rs);
                 if (rs.next()) {
+
                     System.out.println("Login Successful");
 
                     // App.setRoot("announcement-teacher");
-                    // AdminController adminController = new AdminController(
+
+                    FXMLLoader loader = App.loadFXML("admin-dashboard");
+                    root = loader.load();
+                    AdminController Admin = loader.getController();
+                    Admin.setUserInformation(rs.getString(2));
+                    System.out.println("changing");
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setTitle("Admin Dashboard");
+                    stage.setScene(new Scene(root, 806, 691));
+                    stage.show();
                     // Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3),
                     // rs.getString(4));
                     // AdminController Admin = new AdminController();
-                    FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("admin-dashboard.fxml"));
-                    root = fxmlLoader.load();
-                    AdminController Admin = fxmlLoader.getController();
-                    Admin.setName(rs.getString(2));
-                    Admin.updateNameLabel(rs.getString(2));
+                    // App.changeScene(event, rs.getString(2), "admin-dashboard");
 
-                    System.out.println(Admin.getName());
+                    // System.out.println(Admin.getName());
 
                     // Admin.setId(Integer.parseInt(rs.getString(1)));
                     // Admin.setName(rs.getString(2));
                     // Admin.updateNameLabel(rs.getString(2));
                     // Admin.setEmail(rs.getString(3));
                     // Admin.setPassword(rs.getString(4));
-                    App.setRoot("admin-dashboard");
+                    // App.setRoot("admin-dashboard");
                     // adminController.setName(rs.getString(2));
                 } else {
                     System.out.println("Wrong email or password");
@@ -158,5 +167,6 @@ public class LoginController implements Initializable {
         // }
     }
 
-    ObservableList<String> roleList = FXCollections.observableArrayList("Admin", "Teacher", "User");
+    // ObservableList<String> roleList = FXCollections.observableArrayList("Admin",
+    // "Teacher", "User");
 }

@@ -4,80 +4,55 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class AdminController implements Initializable {
-    /**
-     * @Admin Properties
-     */
-    private int id;
-    private String email;
-    private String password;
-    private String name;
+
     @FXML
-    private Label nameLabel = new Label();
+    ComboBox<String> designation;
+    @FXML
+    TextField fullNameField;
+    @FXML
+    TextField emailField;
+    @FXML
+    TextField passwordField;
+    @FXML
+    Label nameLabel;
+    // @FXML
+    // Button create_acc_button;
 
     /**
-     * Setters and Getters
+     * @Admin Methods
      */
-    public int getId() {
-        return id;
-    }
+    void changeScene(ActionEvent event, String fxml, String title) throws IOException {
+        Parent root = null;
+        try {
+            FXMLLoader loader = App.loadFXML(fxml);
+            root = loader.load();
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void updateNameLabel(String nm) {
-        nameLabel.setText(nm);
-    }
-
-    public void setName(String name) {
-        this.name = name;
-        // updateNameLabel(name);
-        // System.out.println("Name: " + name);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root, 806, 691));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
-
-    /**
-     * Initializes the controller class.
-     * 
-     * @param id,
-     * @param email,
-     * @param password,
-     * @param name
-     */
-    // AdminController(int id, String name, String email, String password) {
-    // this.id = id;
-    // this.name = name;
-    // this.email = email;
-    // this.password = password;
-    // }
 
     /**
      * Initializes the controller class.
@@ -88,18 +63,25 @@ public class AdminController implements Initializable {
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle rs) {
-
+        // designation.setItems(App.roleList);
+        /**
+         * @Admin Methods
+         */
+        // create_acc_button.setOnAction(new EventHandler<ActionEvent>() {
+        // @Override
+        // public void handle(ActionEvent event) {
+        // try {
+        // createAccount(event);
+        // } catch (Exception e) {
+        // e.printStackTrace();
+        // }
+        // }
+        // });
     }
 
-    @FXML
-    ComboBox<String> designation;
-    @FXML
-    TextField fullNameField;
-    @FXML
-    TextField emailField;
-    @FXML
-    TextField passwordField;
-
+    public void setUserInformation(String name) {
+        nameLabel.setText("Welcome " + name);
+    }
     // AdminController() {
     // System.out.println("Hello from admin");
     // }
@@ -155,11 +137,10 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    public void createAccountWindow() throws IOException {
+    public void createAccountWindow(ActionEvent event) throws IOException {
         System.out.println("Account created");
-
-        App.setRoot("create-account");
-
+        // App.setRoot("create-account");
+        changeScene(event, "create-account", "Create Account");
     }
 
     @FXML
@@ -169,10 +150,11 @@ public class AdminController implements Initializable {
             App.getStatement()
                     .executeQuery("INSERT INTO users VALUES ('" + fullNameField.getText() + "','" + emailField.getText()
                             + "','" + passwordField.getText() + "','" + designation.getValue() + "')");
-            App.setRoot("admin-dashboard");
+            // changeScene(event, "admin-dashboard.fxml", "Admin Dashboard");
         } catch (Exception e) {
             System.out.println("Error");
         }
 
     }
+
 }
