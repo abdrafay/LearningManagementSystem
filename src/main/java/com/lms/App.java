@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.sql.*;
 import java.io.IOException;
+import java.lang.Thread.State;
 
 /**
  * JavaFX App
@@ -18,6 +19,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static Connection connection;
     private static Statement st;
 
     @Override
@@ -28,8 +30,12 @@ public class App extends Application {
         // e.getMessage();
         // }
         stage.setScene(scene);
-        // stage.setResizable(false);
+        stage.setResizable(false);
         stage.show();
+    }
+
+    static Connection getConnection() {
+        return connection;
     }
 
     static Statement getStatement() {
@@ -63,12 +69,17 @@ public class App extends Application {
     // }
 
     // }
-    public static ObservableList<String> roleList = FXCollections.observableArrayList("Admin", "Teacher", "User");
+    public static ObservableList<String> roleList = FXCollections.observableArrayList("Teacher", "Student");
 
     public static void main(String[] args) {
         DBConnection con = new DBConnection();
         // setStatment(con.getStatement());
-        App.st = con.getStatement();
+        try {
+            App.connection = con.getConnection();
+            App.st = App.connection.createStatement();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         launch();
     }
 

@@ -1,14 +1,16 @@
 package com.lms;
 
+import javafx.event.ActionEvent;
+
 public interface AdminActions {
-    void createAccount();
+    void createAccount(ActionEvent event);
 
-    void viewAccount();
+    // void viewAccount();
 
-    void updateAccount();
+    // void updateAccount();
 
-    void deleteAccount();
+    // void deleteAccount();
 
-    void assignCourses();
+    // void assignCourses();
 
 }

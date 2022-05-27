@@ -39,7 +39,7 @@ public class LoginController implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle rs) {
         // roleBox.setValue("Admin");
-        roleBox.setItems(App.roleList);
+        roleBox.setItems(roleList);
     }
     // @FXML private void initialize() {
 
@@ -93,7 +93,7 @@ public class LoginController implements Initializable {
                     System.out.println("changing");
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setTitle("Admin Dashboard");
-                    stage.setScene(new Scene(root, 806, 691));
+                    stage.setScene(new Scene(root, 989, 691));
                     stage.show();
                     // Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3),
                     // rs.getString(4));
@@ -117,21 +117,49 @@ public class LoginController implements Initializable {
                         "SELECT * FROM users WHERE email = '" + email + "' AND password = '" +
                                 password + "' AND user_type = 'Teacher'");
                 if (rs.next()) {
-                    TeacherController Teacher = new TeacherController();
-                    Teacher.setId(Integer.parseInt(rs.getString(1)));
-                    Teacher.setName(rs.getString(2));
-                    Teacher.setEmail(rs.getString(3));
-                    Teacher.setPassword(rs.getString(4));
-                    App.setRoot("announcement-teacher");
+
+                    // Teacher.setId(Integer.parseInt(rs.getString(1)));
+                    // Teacher.setName(rs.getString(2));
+                    // Teacher.setEmail(rs.getString(3));
+                    // Teacher.setPassword(rs.getString(4));
+                    FXMLLoader loader = App.loadFXML("teacher");
+                    root = loader.load();
+                    System.out.println("Hello");
+                    // System.out.println(loader.getController());
+                    TeacherController Teacher = loader.getController();
+                    System.out.println("Teacher: " + Teacher);
+                    Teacher.setUserInformation(rs.getString(1), rs.getString(2), rs.getString(3));
+                    System.out.println("changing");
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setTitle("Teacher Dashboard");
+                    stage.setScene(new Scene(root, 989, 691));
+                    stage.show();
+                    // App.setRoot("announcement-teacher");
                 }
             } else if (roleBox.getValue().equals("Student")) {
+
                 rs = App.getStatement().executeQuery(
                         "SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password
                                 + "' AND user_type = 'Student'");
                 if (rs.next()) {
-                    StudentController student = new StudentController(
-                            Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3), rs.getString(4));
-                    App.setRoot("student-window");
+                    // StudentController student = new StudentController(
+                    // Integer.parseInt(rs.getString(1)), rs.getString(2), rs.getString(3),
+                    // rs.getString(4));
+                    System.out.println("Login Successful");
+
+                    // App.setRoot("announcement-teacher");
+
+                    FXMLLoader loader = App.loadFXML("student");
+                    root = loader.load();
+                    // System.out.println(loader.getController());
+                    StudentController Student = loader.getController();
+                    System.out.println("Student: " + Student);
+                    Student.setUserInformation(rs.getString(1), rs.getString(2), rs.getString(3));
+                    System.out.println("changing");
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setTitle("Student Dashboard");
+                    stage.setScene(new Scene(root, 989, 691));
+                    stage.show();
                 }
             }
             rs.close();
@@ -167,6 +195,6 @@ public class LoginController implements Initializable {
         // }
     }
 
-    // ObservableList<String> roleList = FXCollections.observableArrayList("Admin",
-    // "Teacher", "User");
+    ObservableList<String> roleList = FXCollections.observableArrayList("Admin",
+            "Teacher", "Student");
 }

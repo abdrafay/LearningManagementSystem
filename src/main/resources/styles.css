@@ -1,4 +1,5 @@
 .txtFHeight {
+    min-height: 30;
     -fx-min-height: 30;
 }
 :-fx-root {
@@ -9,14 +10,27 @@
 /* Language: css */
 /* Path: project\src\main\resources\styles.css */
 .primary-bg {
+    background-color: #050a30;
     -fx-background-color: #050a30;
 }
 
 .button-hover:hover {
+    background-color: #223dfe;
     -fx-background-color: #223dfe;
 }
 .btn {
+    font-family: 'Poppins';
     -fx-font-family: 'Poppins';
     -fx-text-fill: #fff;
+    background-color: #12229c;
     -fx-background-color: #12229c;
+}
+
+.brdWhite {
+    border-color: #fff;
+    -fx-border-color: #fff;
+}
+.fnt11 {
+    font-size: 11;
+    -fx-font-size: 11;
 }
