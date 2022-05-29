@@ -71,38 +71,49 @@ public class AssignRemoveCourseController implements Initializable {
         if (getSelectedCourseID() != null) {
             String sql = "INSERT INTO user_courses (courseID, UserID) VALUES (?, ?)";
             String sql2 = "UPDATE courses SET TeacherId = ? WHERE id = ?";
-            String sql3 = "SELECT EXISTS(SELECT * from user_courses WHERE UserID='" + getID() + " AND CourseID='"
-                    + getSelectedCourseID() + "')";
+            String sql3 = "SELECT EXISTS(SELECT * from user_courses WHERE UserID= ? AND CourseId = ?)";
+            // '" + getID() + "' AND CourseID='" + getSelectedCourseID() + "'
 
             try {
-                System.out.println("Assigning course");
-                PreparedStatement pstm = App.getConnection().prepareStatement(sql3);
-                ResultSet rs = pstm.executeQuery();
+                PreparedStatement stmt = App.getConnection().prepareStatement(sql3);
+                stmt.setString(1, getID());
+                stmt.setString(2, getSelectedCourseID());
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    if (rs.getInt(1) == 0) {
 
-                // if the user is not assigned to the course
-                if (!rs.next()) {
-                    PreparedStatement pstmt = App.getConnection().prepareStatement(sql);
-                    pstmt.setString(1, getSelectedCourseID());
-                    pstmt.setString(2, getID());
-                    pstmt.executeUpdate();
-                    pstmt.close();
+                        PreparedStatement pstmt = App.getConnection().prepareStatement(sql);
+                        pstmt.setString(1, getSelectedCourseID());
+                        pstmt.setString(2, getID());
+                        pstmt.executeUpdate();
+                        pstmt.close();
 
-                    if (userType.equals("Teacher")) {
-                        PreparedStatement pstmt2 = App.getConnection().prepareStatement(sql2);
-                        pstmt2.setString(1, getID());
-                        pstmt2.setString(2, getSelectedCourseID());
-                        pstmt2.executeUpdate();
-                        pstmt2.close();
+                        if (userType.equals("Teacher")) {
+                            PreparedStatement pstmt2 = App.getConnection().prepareStatement(sql2);
+                            pstmt2.setString(1, getID());
+                            pstmt2.setString(2, getSelectedCourseID());
+                            pstmt2.executeUpdate();
+                            pstmt2.close();
+                        }
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Assign Course");
+                        alert.setHeaderText("Assign Course");
+                        alert.setContentText("Course Assigned Successfully");
+                        alert.show();
+
+                    } else {
+
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Assigned!!");
+                        alert.setContentText("Course Already Assigned");
+                        alert.showAndWait();
+
                     }
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Assigned!!");
-                    alert.setContentText("Course Already Assigned");
-                    alert.showAndWait();
                 }
+                stmt.close();
 
-                getCourses();
+                // getCourses();
             } catch (Exception e) {
                 e.printStackTrace();
             }

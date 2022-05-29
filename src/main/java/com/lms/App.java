@@ -32,6 +32,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        //
     }
 
     static Connection getConnection() {
@@ -75,7 +76,7 @@ public class App extends Application {
         DBConnection con = new DBConnection();
         // setStatment(con.getStatement());
         try {
-            App.connection = con.getConnection();
+            App.connection = DBConnection.getConnection();
             App.st = App.connection.createStatement();
         } catch (Exception e) {
             e.printStackTrace();

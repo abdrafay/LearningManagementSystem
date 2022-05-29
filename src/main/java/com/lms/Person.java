@@ -3,6 +3,7 @@ package com.lms;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Person {
+    private String courseID;
     private SimpleStringProperty id;
     private SimpleStringProperty name;
     private SimpleStringProperty email;
@@ -23,13 +24,15 @@ public class Person {
         this.password = new SimpleStringProperty(password);
     }
 
-    public Person(String id, String email, String name, String marks, String attendance, String user_type) {
+    public Person(String id, String email, String name, String marks, String attendance, String user_type,
+            String courseID) {
         this.id = new SimpleStringProperty(id);
         this.name = new SimpleStringProperty(name);
         this.email = new SimpleStringProperty(email);
         this.marks = new SimpleStringProperty(marks);
         this.attendance = new SimpleStringProperty(attendance);
         this.user_type = new SimpleStringProperty(user_type);
+        this.courseID = courseID;
     }
 
     /**
@@ -95,11 +98,44 @@ public class Person {
         return user_type.get();
     }
 
+    public String getCourseID() {
+        return courseID;
+    }
+
+    public String setCourseID(String courseID) {
+        return this.courseID = courseID;
+    }
+
     /**
      * @param user_type the user_type to set
      */
     public void setUser_type(String user_type) {
         this.user_type.set(user_type);
+    }
+
+    // setter and getter for marks, attendance and password
+    public String getMarks() {
+        return marks.get();
+    }
+
+    public void setMarks(String marks) {
+        this.marks.set(marks);
+    }
+
+    public String getAttendance() {
+        return attendance.get();
+    }
+
+    public void setAttendance(String attendance) {
+        this.attendance.set(attendance);
+    }
+
+    public String getPassword() {
+        return password.get();
+    }
+
+    public void setPassword(String password) {
+        this.password.set(password);
     }
 
 }
